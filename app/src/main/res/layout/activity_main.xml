@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="$100,000.01"
+        android:text="20.000"
         android:textColor="@color/black"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -31,12 +31,19 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="4dp"
         android:text="USD"
         app:layout_constraintBottom_toBottomOf="@+id/currency_value"
         app:layout_constraintStart_toEndOf="@+id/currency_value" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/recycler_view" />
+
+
     <androidx.recyclerview.widget.RecyclerView
+        tools:listitem="@layout/item_currency_view"
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
