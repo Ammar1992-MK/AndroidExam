@@ -15,14 +15,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/currencyImageBuy"
+            android:id="@+id/currencyImageSell"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="left"
             android:layout_margin="20dp" />
 
         <TextView
-            android:id="@+id/currencyNameBuy"
+            android:id="@+id/currencyNameSell"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
@@ -34,7 +34,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/currencyRateBuy"
+            android:id="@+id/currencyRateSell"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|bottom"
@@ -54,27 +54,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout2">
 
-       <FrameLayout
-           android:layout_gravity="center"
-           android:layout_width="200dp"
-           android:layout_height="wrap_content">
+        <FrameLayout
+            android:layout_gravity="center"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content">
 
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_gravity="left"
-               android:textStyle="bold"
-               android:textColor="@color/black"
-               android:textSize="16sp"
-               android:text="USD"/>
-           <EditText
-               android:id="@+id/usdInput"
-               android:layout_width="100dp"
-               android:layout_height="30dp"
-               android:inputType="number"
-               android:layout_gravity="right"
-               android:background="@drawable/rectangle"/>
-       </FrameLayout>
+            <TextView
+                android:id="@+id/currencySymbolSell"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:text="BTC"/>
+            <TextView
+                android:id="@+id/currencyInputSell"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:inputType="number"
+                android:layout_gravity="right"
+                android:background="@drawable/rectangle"/>
+        </FrameLayout>
 
         <FrameLayout
             android:layout_width="200dp"
@@ -83,17 +84,17 @@
             android:layout_gravity="center">
 
             <TextView
-                android:id="@+id/currencySymbol"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:text="BTC"
+                android:text="USD"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/CurrencyOutput"
+                android:id="@+id/USDOutput"
                 android:layout_width="100dp"
                 android:layout_height="30dp"
                 android:layout_gravity="right"
@@ -102,15 +103,15 @@
         </FrameLayout>
 
         <Button
-            android:id="@+id/buyBtn"
-            android:text="Buy"
+            android:id="@+id/sellBtn"
+            android:text="Sell"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:layout_gravity="bottom|center"/>
 
         <TextView
-            android:id="@+id/USDBalance"
+            android:id="@+id/currencyBalance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="you have 450 USD"
@@ -120,6 +121,5 @@
 
 
     </FrameLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
