@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">CoinHub</string>
     <string name="coinhub">CoinHub</string>
+    <string name="user_info">Your total current points are the sum of the current value of all your currencies in USD</string>
 </resources>
