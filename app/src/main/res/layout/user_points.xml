@@ -13,7 +13,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
         android:background="@drawable/rectangle"
-        android:paddingTop="15dp"
+        android:paddingTop="16dp"
         android:paddingBottom="15dp"
         android:text="Points 12454.7 USD"
         android:textAlignment="center"
