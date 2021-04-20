@@ -62,6 +62,7 @@
             android:layout_gravity="center"/>
 
         <Button
+            android:id="@+id/buyNavButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left|bottom"
@@ -69,6 +70,7 @@
             android:text="Buy" />
 
         <Button
+            android:id="@+id/sellNavBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|bottom"
