@@ -2,24 +2,27 @@ package no.kristiania.coinhub.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.PrimaryKey
+
 
 @Entity(tableName = "transaction_table")
- data class Transaction (
+data class Transaction (
 
-    @ColumnInfo(name = "id")
-    val id:Long = 0,
+   @PrimaryKey(autoGenerate = true)
+   @ColumnInfo(name = "id")
+   val id:Long = 0,
 
-    @ColumnInfo(name = "type")
-    val type : String,
+   @ColumnInfo(name = "type")
+   val type : String,
 
-    @ColumnInfo(name = "volume")
-    val volume : Float,
+   @ColumnInfo(name = "volume")
+   val volume : Float,
 
-    @ColumnInfo(name = "rate")
-    val rate : Int,
+   @ColumnInfo(name = "rate")
+   val rate : Int,
 
-    @ColumnInfo(name = "symbol")
-    val symbol : String,
+   @ColumnInfo(name = "symbol")
+   val symbol : String,
 
 
-         )
+   )

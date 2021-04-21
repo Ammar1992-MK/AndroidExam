@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CoinHub">
         <activity android:name=".MainActivity"></activity>
+        <activity android:name=".CryptoCurrencyActivity"></activity>
         <activity
             android:name=".SplashScreen"
             android:theme="@style/Theme.AppCompat">
