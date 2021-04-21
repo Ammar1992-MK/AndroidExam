@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import no.kristiania.coinhub.databinding.ItemCurrencyViewBinding
 import no.kristiania.coinhub.models.CurrencyStats
+import java.math.RoundingMode
 
 class CurrencyListAdapter(private var list: List<CurrencyStats>) : RecyclerView.Adapter<CurrencyListAdapter.CurrencyViewHolder>() {
     override fun onCreateViewHolder(
@@ -28,8 +29,8 @@ class CurrencyListAdapter(private var list: List<CurrencyStats>) : RecyclerView.
             Picasso.get().load("https://static.coincap.io/assets/icons/${stats.Symbol.toLowerCase()}@2x.png").into(binding.currencyLogo)
             binding.currencyName.text = "${stats.Name}"
             binding.currencySymbol.text = "${stats.Symbol}"
-            binding.currencyValue.text = "${stats.PriceUsd}"
-            binding.changePercent.text = "${stats.ChangePercent24Hr}%"
+            binding.currencyValue.text = "$ ${stats.PriceUsd.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()}"
+            binding.changePercent.text = "${stats.ChangePercent24Hr.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()}%"
         }
     }
 
