@@ -14,7 +14,7 @@ class LiveSource {
         var response = get("https://api.coincap.io/v2/assets")
 
         if(response.isSuccessful){
-            var currencies = JSONObject(response.body).getJSONArray("Currencies")
+            var currencies = JSONObject(response.body).getJSONArray("data")
 
             for (i in 0 until currencies.length()){
 
