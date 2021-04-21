@@ -13,17 +13,18 @@
             android:id="@+id/currencyLogo"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/ic_example" />
+            android:layout_marginRight="4dp"/>
 
         <TextView
             android:id="@+id/currencyName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/currencyLogo"
             android:text="Currency Name"
             android:textColor="@android:color/black"
             android:textSize="11sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_toEndOf="@+id/currencyLogo"
+            android:paddingTop="10dp"/>
 
         <TextView
             android:id="@+id/currencySymbol"
@@ -44,13 +45,13 @@
             android:textSize="14sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/changePercent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:layout_marginRight="10dp"
-            android:text="5.55%" />
+    <TextView
+        android:id="@+id/changePercent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:text="5.55%" />
 
     </RelativeLayout>
