@@ -7,10 +7,12 @@ import no.kristiania.coinhub.adapters.CurrencyListAdapter
 import no.kristiania.coinhub.databinding.ActivityMainBinding
 import no.kristiania.coinhub.datasources.DummySource
 import no.kristiania.coinhub.models.CurrencyStats
+import no.kristiania.coinhub.viewmodels.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var listAdapter :CurrencyListAdapter
+    private val viewModel = MainViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +25,13 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = listAdapter
 
-        listAdapter.update(DummySource().getSummary())
+        viewModel.liveStats.observe(this, { list->
+            listAdapter.update(list)
+        })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.refresh()
     }
 }

@@ -29,7 +29,7 @@ class CurrencyListAdapter(private var list: List<CurrencyStats>) : RecyclerView.
             binding.currencyName.text = "${stats.Name}"
             binding.currencySymbol.text = "${stats.Symbol}"
             binding.currencyValue.text = "${stats.PriceUsd}"
-            binding.changePercent.text = "${stats.ChangePercent24Hr}"
+            binding.changePercent.text = "${stats.ChangePercent24Hr}%"
         }
     }
 
