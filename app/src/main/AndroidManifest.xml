@@ -9,11 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CoinHub">
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".CryptoCurrencyActivity"></activity>
         <activity
             android:name=".SplashScreen"
-            android:theme="@style/Theme.AppCompat">
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,6 +19,7 @@
             </intent-filter>
 
         </activity>
+        <activity android:name=".MainActivity"></activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

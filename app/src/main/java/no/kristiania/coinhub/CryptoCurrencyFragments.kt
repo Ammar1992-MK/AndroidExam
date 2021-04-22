@@ -1,23 +1,28 @@
 package no.kristiania.coinhub
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
 import no.kristiania.coinhub.databinding.CryptocurrencyLayoutBinding
 
-class CryptoCurrencyActivity : AppCompatActivity() {
+class CryptoCurrencyFragments : Fragment(R.layout.cryptocurrency_layout) {
 
     private lateinit var binding : CryptocurrencyLayoutBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-        binding = CryptocurrencyLayoutBinding.inflate(layoutInflater)
+    companion object{
 
-        setContentView(binding.root)
+        fun newInstance() = CryptoCurrencyFragments()
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val name = intent.getStringExtra("NAME")
-        val symbol = intent.getStringExtra("SYMBOL")
-        val priceUsd = intent.getDoubleExtra("PRICEUSD", 0.0)
+        binding = CryptocurrencyLayoutBinding.bind(view)
+
+        var priceUsd = arguments?.getDouble("price")
+        var name = arguments?.getString("name")
+        var symbol = arguments?.getString("symbol")
 
         binding.currencyRate.text = priceUsd.toString()
         binding.currencyName.text = name.toString()
