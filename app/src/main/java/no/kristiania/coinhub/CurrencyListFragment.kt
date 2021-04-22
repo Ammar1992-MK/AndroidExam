@@ -1,8 +1,11 @@
 package no.kristiania.coinhub
 
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import no.kristiania.coinhub.adapters.CurrencyListAdapter
@@ -12,9 +15,10 @@ import no.kristiania.coinhub.viewmodels.MainViewModel
 
 class CurrencyListFragment : Fragment(R.layout.currency_list_fragment) {
 
+
     private lateinit var binding: CurrencyListFragmentBinding
     private lateinit var listAdapter :CurrencyListAdapter
-    private var points = 1000
+    private lateinit var sharedPreferences: SharedPreferences
     private val viewModel = MainViewModel()
 
     companion object{
@@ -26,6 +30,11 @@ class CurrencyListFragment : Fragment(R.layout.currency_list_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = CurrencyListFragmentBinding.bind(view)
+
+
+        sharedPreferences = requireActivity().getSharedPreferences("no.kristiania.coinhub", MODE_PRIVATE)
+        sharedPreferences.edit().putBoolean("FIRST_RUN", true).apply()
+        var firstRun = sharedPreferences.getBoolean("FIRST_RUN", true)
 
         listAdapter = CurrencyListAdapter(ArrayList<CurrencyStats>()){ stats ->
           var fragment =  CryptoCurrencyFragments.newInstance()
@@ -48,15 +57,16 @@ class CurrencyListFragment : Fragment(R.layout.currency_list_fragment) {
         binding.recyclerView.adapter = listAdapter
 
         //init view model
-        viewModel.init(requireContext())
-        //save reward
-        viewModel.saveInstallationReward("USD", points.toFloat())
+        viewModel.init(requireContext(),firstRun)
 
         //get USD points
-
         viewModel.Points.observe(viewLifecycleOwner){
+
             binding.currencyValue.text = it.toString()
+
+            Log.d("points", it.toString())
         }
+
        binding.points.setOnClickListener {
 
            var fragment = PortfolioFragment.newInstance()
@@ -81,6 +91,7 @@ class CurrencyListFragment : Fragment(R.layout.currency_list_fragment) {
     override fun onResume() {
         super.onResume()
         viewModel.refresh()
+        sharedPreferences.edit().putBoolean("FIRST_RUN", false).apply()
     }
 
 }

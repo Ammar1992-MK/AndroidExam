@@ -1,6 +1,7 @@
 package no.kristiania.coinhub.viewmodels
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,20 +18,31 @@ import no.kristiania.coinhub.repos.CurrencyRepo
 class MainViewModel : ViewModel() {
 
     val liveStats = MutableLiveData<List<CurrencyStats>> (ArrayList<CurrencyStats>())
-    private val _Points = MutableLiveData<Float>()
-    val Points : LiveData<Float> get() = _Points
+    private val _Points = MutableLiveData<Double>()
+    val Points : LiveData<Double> get() = _Points
     private var repo = CurrencyRepo()
     private lateinit var transactionDao: TransactionDAO
 
-    fun init (context : Context){
-
+    fun init (context : Context, firstRun : Boolean){
         transactionDao = DataBase.getDatabase(context).getTransactionDAO()
 
-        viewModelScope.launch {
+        giveReward(firstRun)
 
-            _Points.value =   transactionDao.getCurrency("USD")
+        viewModelScope.launch {
+            _Points.value =   transactionDao.getReward("reward")
+        }
+
+    }
+
+    fun giveReward(firstRun: Boolean){
+        viewModelScope.launch {
+            if(firstRun){
+                transactionDao.insert(Transaction(volume = 10000.toDouble(),type = "reward",rate = 0, symbol = "USD"))
+            }
         }
     }
+
+
 
     fun refresh() {
         viewModelScope.launch {
@@ -42,16 +54,7 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun saveInstallationReward (symbol : String, volume : Float){
 
-        viewModelScope.launch {
 
-            if(symbol.isNullOrEmpty() || volume.isNaN()){
-                return@launch
-            }
-
-            transactionDao.insert(Transaction(symbol = symbol, volume = volume, rate = 0, type = "reward"))
-        }
-    }
 
 }

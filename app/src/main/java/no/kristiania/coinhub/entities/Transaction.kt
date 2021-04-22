@@ -16,7 +16,7 @@ data class Transaction (
    val type : String,
 
    @ColumnInfo(name = "volume")
-   val volume : Float,
+   val volume : Double,
 
    @ColumnInfo(name = "rate")
    val rate : Int,
