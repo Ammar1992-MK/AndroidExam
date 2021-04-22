@@ -16,14 +16,21 @@ class CryptoCurrencyViewModel : ViewModel() {
     private val _currencyVolumeLiveData = MutableLiveData<Float>()
     val currencyVolumeLiveData : LiveData<Float> get() = _currencyVolumeLiveData
 
-    fun init (context : Context){
+    private val _buyEnabled = MutableLiveData<Boolean>()
+    val buyEnabled : LiveData<Boolean> get() = _buyEnabled
+
+    fun init (context : Context, symbol: String){
         transactionDao = DataBase.getDatabase(context).getTransactionDAO()
-    }
 
-    fun getCurrencyVolume( symbol : String) {
         viewModelScope.launch {
-
             _currencyVolumeLiveData.value = transactionDao.getCurrency(symbol)
         }
+
+        viewModelScope.launch {
+            val points = transactionDao.getCurrency("USD")
+            _buyEnabled.value = points >= 1
+        }
     }
+
 }
+

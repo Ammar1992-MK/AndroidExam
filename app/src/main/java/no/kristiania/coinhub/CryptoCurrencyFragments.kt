@@ -34,19 +34,13 @@ class CryptoCurrencyFragments : Fragment(R.layout.cryptocurrency_layout) {
 
         //init view model
 
-        viewModel.init(requireContext())
-
         if (symbol != null) {
-            viewModel.getCurrencyVolume(symbol)
+            viewModel.init(requireContext(), symbol)
         }
 
-
         viewModel.currencyVolumeLiveData.observe(viewLifecycleOwner){
-
             with(binding){
-
                 if ( it == null){
-
                     wallet.text = "you have 0.00 ${symbol}"
                     sellNavBtn.isEnabled = false
                 } else {
@@ -55,9 +49,10 @@ class CryptoCurrencyFragments : Fragment(R.layout.cryptocurrency_layout) {
                     sellNavBtn.isEnabled = true
                 }
             }
-
         }
 
-
+        viewModel.buyEnabled.observe(viewLifecycleOwner){
+            binding.buyNavButton.isEnabled = it
+        }
     }
 }
