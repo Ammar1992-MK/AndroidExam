@@ -14,6 +14,7 @@ class CurrencyListFragment : Fragment(R.layout.currency_list_fragment) {
 
     private lateinit var binding: CurrencyListFragmentBinding
     private lateinit var listAdapter :CurrencyListAdapter
+    private var points = 1000
     private val viewModel = MainViewModel()
 
     companion object{
@@ -46,9 +47,18 @@ class CurrencyListFragment : Fragment(R.layout.currency_list_fragment) {
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = listAdapter
 
+        //init view model
+        viewModel.init(requireContext())
+        //save reward
+        viewModel.saveInstallationReward("USD", points.toFloat())
 
+        //get USD points
+
+        viewModel.Points.observe(viewLifecycleOwner){
+            binding.currencyValue.text = it.toString()
+        }
        binding.points.setOnClickListener {
-           Log.d("click", "Called")
+
            var fragment = PortfolioFragment.newInstance()
 
            fragment.arguments = Bundle().apply {
