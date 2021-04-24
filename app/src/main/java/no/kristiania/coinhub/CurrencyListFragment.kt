@@ -11,15 +11,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import no.kristiania.coinhub.adapters.CurrencyListAdapter
 import no.kristiania.coinhub.databinding.CurrencyListFragmentBinding
 import no.kristiania.coinhub.models.CurrencyStats
-import no.kristiania.coinhub.viewmodels.MainViewModel
+import no.kristiania.coinhub.viewmodels.CurrencyListViewModel
 
 class CurrencyListFragment : Fragment(R.layout.currency_list_fragment) {
 
 
     private lateinit var binding: CurrencyListFragmentBinding
     private lateinit var listAdapter :CurrencyListAdapter
-    private lateinit var sharedPreferences: SharedPreferences
-    private val viewModel = MainViewModel()
+    private val viewModel = CurrencyListViewModel()
 
     companion object{
 
@@ -30,11 +29,6 @@ class CurrencyListFragment : Fragment(R.layout.currency_list_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = CurrencyListFragmentBinding.bind(view)
-
-
-        sharedPreferences = requireActivity().getSharedPreferences("no.kristiania.coinhub", MODE_PRIVATE)
-        sharedPreferences.edit().putBoolean("FIRST_RUN", true).apply()
-        var firstRun = sharedPreferences.getBoolean("FIRST_RUN", true)
 
         listAdapter = CurrencyListAdapter(ArrayList<CurrencyStats>()){ stats ->
           var fragment =  CryptoCurrencyFragments.newInstance()
@@ -57,22 +51,16 @@ class CurrencyListFragment : Fragment(R.layout.currency_list_fragment) {
         binding.recyclerView.adapter = listAdapter
 
         //init view model
-        viewModel.init(requireContext(),firstRun)
+        viewModel.init(requireContext())
 
         //get USD points
         viewModel.Points.observe(viewLifecycleOwner){
-
             binding.currencyValue.text = it.toString()
-
-            Log.d("points", it.toString())
         }
 
        binding.points.setOnClickListener {
-
            var fragment = PortfolioFragment.newInstance()
-
            fragment.arguments = Bundle().apply {
-
                putString("points", binding.currencyValue.text.toString())
            }
            parentFragmentManager
@@ -83,6 +71,7 @@ class CurrencyListFragment : Fragment(R.layout.currency_list_fragment) {
                .commit()
        }
 
+
         viewModel.liveStats.observe(viewLifecycleOwner){ list->
             listAdapter.update(list)
         }
@@ -91,7 +80,6 @@ class CurrencyListFragment : Fragment(R.layout.currency_list_fragment) {
     override fun onResume() {
         super.onResume()
         viewModel.refresh()
-        sharedPreferences.edit().putBoolean("FIRST_RUN", false).apply()
     }
 
 }

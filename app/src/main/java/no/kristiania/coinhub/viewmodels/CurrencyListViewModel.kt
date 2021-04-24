@@ -15,7 +15,7 @@ import no.kristiania.coinhub.entities.Transaction
 import no.kristiania.coinhub.models.CurrencyStats
 import no.kristiania.coinhub.repos.CurrencyRepo
 
-class MainViewModel : ViewModel() {
+class CurrencyListViewModel : ViewModel() {
 
     val liveStats = MutableLiveData<List<CurrencyStats>> (ArrayList<CurrencyStats>())
     private val _Points = MutableLiveData<Double>()
@@ -23,38 +23,19 @@ class MainViewModel : ViewModel() {
     private var repo = CurrencyRepo()
     private lateinit var transactionDao: TransactionDAO
 
-    fun init (context : Context, firstRun : Boolean){
+    fun init (context : Context){
         transactionDao = DataBase.getDatabase(context).getTransactionDAO()
-
-        giveReward(firstRun)
-
         viewModelScope.launch {
-            _Points.value =   transactionDao.getReward("reward")
-        }
-
-    }
-
-    fun giveReward(firstRun: Boolean){
-        viewModelScope.launch {
-            if(firstRun){
-                transactionDao.insert(Transaction(volume = 10000.toDouble(),type = "reward",rate = 0, symbol = "USD"))
-            }
+            _Points.value =   transactionDao.getReward("installationReward")
         }
     }
-
-
 
     fun refresh() {
         viewModelScope.launch {
-
             var result = withContext(Dispatchers.IO){
                 repo.getCurrencySummary()
             }
             liveStats.value = result
         }
     }
-
-
-
-
 }

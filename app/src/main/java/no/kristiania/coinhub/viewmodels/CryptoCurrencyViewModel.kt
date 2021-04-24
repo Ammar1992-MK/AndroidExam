@@ -1,6 +1,7 @@
 package no.kristiania.coinhub.viewmodels
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -36,6 +37,22 @@ class CryptoCurrencyViewModel : ViewModel() {
             _buyEnabled.value = points >= 1
         }
     }
+
+    fun getEverything(){
+
+        viewModelScope.launch {
+            var data = withContext(Dispatchers.IO){
+
+                transactionDao.getTransactions()
+            }
+
+            Log.d("data", data.toString())
+        }
+
+
+    }
+
+
 
 
 }

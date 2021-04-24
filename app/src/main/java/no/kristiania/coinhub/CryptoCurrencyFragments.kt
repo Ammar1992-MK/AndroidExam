@@ -54,5 +54,8 @@ class CryptoCurrencyFragments : Fragment(R.layout.cryptocurrency_layout) {
         viewModel.buyEnabled.observe(viewLifecycleOwner){
             binding.buyNavButton.isEnabled = it
         }
+
+        viewModel.getEverything()
+
     }
 }

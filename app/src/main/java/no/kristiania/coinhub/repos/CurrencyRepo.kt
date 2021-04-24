@@ -8,7 +8,7 @@ class CurrencyRepo {
 
     private val liveSource = LiveSource()
 
-    suspend fun getCurrencySummary() : List<CurrencyStats> {
+     fun getCurrencySummary() : List<CurrencyStats> {
 
         return liveSource.getSummary()
     }
