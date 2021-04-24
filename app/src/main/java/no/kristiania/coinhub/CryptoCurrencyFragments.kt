@@ -32,8 +32,22 @@ class CryptoCurrencyFragments : Fragment(R.layout.cryptocurrency_layout) {
         binding.currencySymbol.text = symbol.toString()
         Picasso.get().load("https://static.coincap.io/assets/icons/${symbol?.toLowerCase()}@2x.png").into(binding.currencyImage)
 
-        //init view model
 
+        binding.buyNavButton.setOnClickListener {
+            var fragment = BuyCurrencyFragment.newInstance()
+            fragment.arguments = Bundle().apply {
+                putString("name", binding.currencyName.text.toString())
+                putString("symbol", binding.currencySymbol.text.toString())
+                putDouble("priceUsd", binding.currencyRate.text.toString().toDouble())
+            }
+            parentFragmentManager
+                .beginTransaction()
+                .replace(R.id.container_fragment, fragment)
+                .addToBackStack("CryptoCurrency")
+                .commit()
+        }
+
+        //init view model
         if (symbol != null) {
             viewModel.init(requireContext(), symbol)
         }
