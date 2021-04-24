@@ -71,7 +71,6 @@ class CryptoCurrencyFragments : Fragment(R.layout.cryptocurrency_layout) {
             binding.buyNavButton.isEnabled = it
         }
 
-        viewModel.getEverything()
 
     }
 }

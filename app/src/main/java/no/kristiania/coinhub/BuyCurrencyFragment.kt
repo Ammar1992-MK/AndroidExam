@@ -53,5 +53,7 @@ class BuyCurrencyFragment : Fragment(R.layout.buy_currency_layout) {
         binding.buyBtn.setOnClickListener {
             viewModel.addTransaction(symbol!!, binding.CurrencyOutput.text.toString().toDouble(), "buy", priceUsd!!, points!!.toDouble() - binding.usdInput.text.toString().toDouble())
         }
+
+        viewModel.getEverything()
     }
 }

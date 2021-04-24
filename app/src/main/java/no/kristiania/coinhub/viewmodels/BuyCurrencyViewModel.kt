@@ -4,7 +4,9 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import no.kristiania.coinhub.db.DataBase
 import no.kristiania.coinhub.db.TransactionDAO
 import no.kristiania.coinhub.entities.Transaction
@@ -28,6 +30,15 @@ class BuyCurrencyViewModel : ViewModel() {
         viewModelScope.launch {
             transactionDao.update(Transaction(type = "installationReward", volume = cost, rate = 0.toDouble(), symbol = "USD"))
             Log.d("update", "updated!! $cost")
+        }
+    }
+
+    fun getEverything(){
+        viewModelScope.launch {
+            var data = withContext(Dispatchers.IO){
+                transactionDao.getTransactions()
+            }
+            Log.d("data", data.toString())
         }
     }
 }
