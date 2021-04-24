@@ -37,6 +37,7 @@ class CurrencyListFragment : Fragment(R.layout.currency_list_fragment) {
                 putString("name", stats.Name)
                 putDouble("price", stats.PriceUsd)
                 putString("symbol", stats.Symbol)
+                putString("points", binding.currencyValue.text.toString())
             }
 
             parentFragmentManager

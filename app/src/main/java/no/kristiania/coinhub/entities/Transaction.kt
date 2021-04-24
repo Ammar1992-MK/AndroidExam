@@ -19,7 +19,7 @@ data class Transaction (
    val volume : Double,
 
    @ColumnInfo(name = "rate")
-   val rate : Int,
+   val rate : Double,
 
    @ColumnInfo(name = "symbol")
    val symbol : String,

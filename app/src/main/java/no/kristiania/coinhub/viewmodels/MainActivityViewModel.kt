@@ -17,7 +17,7 @@ class MainActivityViewModel : ViewModel() {
 
     fun insertInstallationReward(){
         viewModelScope.launch {
-            transactionDao.insert(Transaction(type = "installationReward", volume = 10000.toDouble(),rate = 0, symbol = "USD"))
+            transactionDao.insert(Transaction(type = "installationReward", volume = 10000.toDouble(),rate = 0.toDouble(), symbol = "USD"))
         }
     }
 }
