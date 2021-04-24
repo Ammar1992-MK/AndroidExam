@@ -72,6 +72,7 @@
                android:layout_width="100dp"
                android:layout_height="30dp"
                android:inputType="number"
+               android:textSize="20sp"
                android:layout_gravity="right"
                android:background="@drawable/rectangle"/>
        </FrameLayout>
@@ -97,6 +98,8 @@
                 android:layout_width="100dp"
                 android:layout_height="30dp"
                 android:layout_gravity="right"
+                android:textColor="@color/black"
+                android:textSize="20sp"
                 android:background="@drawable/rectangle"
                 />
         </FrameLayout>
