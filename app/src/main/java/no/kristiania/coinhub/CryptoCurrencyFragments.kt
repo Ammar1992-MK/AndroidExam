@@ -26,6 +26,7 @@ class CryptoCurrencyFragments : Fragment(R.layout.cryptocurrency_layout) {
         var priceUsd = arguments?.getDouble("price")
         var name = arguments?.getString("name")
         var symbol = arguments?.getString("symbol")
+        var points = arguments?.get("points")
 
         binding.currencyRate.text = priceUsd.toString()
         binding.currencyName.text = name.toString()
@@ -39,6 +40,7 @@ class CryptoCurrencyFragments : Fragment(R.layout.cryptocurrency_layout) {
                 putString("name", binding.currencyName.text.toString())
                 putString("symbol", binding.currencySymbol.text.toString())
                 putDouble("priceUsd", binding.currencyRate.text.toString().toDouble())
+                putString("points", points.toString())
             }
             parentFragmentManager
                 .beginTransaction()

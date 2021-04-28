@@ -1,11 +1,7 @@
 package no.kristiania.coinhub
 
-import android.content.Context.MODE_PRIVATE
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import no.kristiania.coinhub.adapters.CurrencyListAdapter
@@ -37,6 +33,7 @@ class CurrencyListFragment : Fragment(R.layout.currency_list_fragment) {
                 putString("name", stats.Name)
                 putDouble("price", stats.PriceUsd)
                 putString("symbol", stats.Symbol)
+                putString("points", binding.currencyValue.text.toString())
             }
 
             parentFragmentManager
@@ -54,7 +51,7 @@ class CurrencyListFragment : Fragment(R.layout.currency_list_fragment) {
         viewModel.init(requireContext())
 
         //get USD points
-        viewModel.Points.observe(viewLifecycleOwner){
+        viewModel.points.observe(viewLifecycleOwner){
             binding.currencyValue.text = it.toString()
         }
 

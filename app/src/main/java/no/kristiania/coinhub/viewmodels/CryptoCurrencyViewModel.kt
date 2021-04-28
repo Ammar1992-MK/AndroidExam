@@ -38,22 +38,15 @@ class CryptoCurrencyViewModel : ViewModel() {
         }
     }
 
-    fun getEverything(){
 
+    fun getEverything(){
         viewModelScope.launch {
             var data = withContext(Dispatchers.IO){
-
                 transactionDao.getTransactions()
             }
-
             Log.d("data", data.toString())
         }
-
-
     }
-
-
-
 
 }
 
