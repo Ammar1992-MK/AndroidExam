@@ -5,25 +5,25 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import no.kristiania.coinhub.databinding.PortfolioItemBinding
+import no.kristiania.coinhub.entities.Transaction
 import no.kristiania.coinhub.models.CurrencyStats
 import java.math.RoundingMode
 
 
-class PortfolioAdapter(val lambdaFunction: (CurrencyStats) -> Unit) :
+class PortfolioAdapter() :
     RecyclerView.Adapter<PortfolioAdapter.ViewHolder>() {
 
-        private val portfolioList = mutableListOf<CurrencyStats>()
+        private val portfolioList = mutableListOf<Transaction>()
 
         class ViewHolder(val binding: PortfolioItemBinding) : RecyclerView.ViewHolder(binding.root){
-            fun bind(stats: CurrencyStats, listener : (CurrencyStats) -> Unit)  {
-                Picasso.get().load("https://static.coincap.io/assets/icons/${stats.Symbol.toLowerCase()}@2x.png").into(binding.imageViewCrypto)
+            fun bind( transaction : Transaction )  {
 
-                binding.currencyName.text = "${stats.Name}"
-                binding.imageViewCrypto.imageMatrix = "${stats.Symbol}"
-                binding.currencyValue.text = "$ ${stats.PriceUsd.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()}"
-                binding.changePercent.text = "${stats.ChangePercent24Hr.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()}%"
+                binding.textViewCryptoAmount.text = transaction.volume.toString()
+                val symbol = transaction.symbol
+                Picasso.get().load("https://static.coincap.io/assets/icons/${symbol?.toLowerCase()}@2x.png").into(binding.imageViewCrypto)
 
             }
+
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -39,7 +39,7 @@ class PortfolioAdapter(val lambdaFunction: (CurrencyStats) -> Unit) :
         holder.bind(portfolioList[position])
     }
 
-    fun setPortfolioList(list: List<CurrencyStats>) {
+    fun setPortfolioList(list: List<Transaction>) {
         portfolioList.clear()
         portfolioList.addAll(list)
         notifyDataSetChanged()

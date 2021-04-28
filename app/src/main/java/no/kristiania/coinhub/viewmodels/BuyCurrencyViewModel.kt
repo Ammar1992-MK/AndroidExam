@@ -21,6 +21,9 @@ class BuyCurrencyViewModel : ViewModel() {
     private val _points = MutableLiveData<Double>()
     val points : LiveData<Double> get() = _points
 
+    private val _currencyVolume = MutableLiveData<Double>()
+    val currencyVolume : LiveData<Double> get() = _currencyVolume
+
 
     fun init (context : Context) {
         transactionDao = DataBase.getDatabase(context).getTransactionDAO()
@@ -47,6 +50,15 @@ class BuyCurrencyViewModel : ViewModel() {
         viewModelScope.launch {
             transactionDao.updateUserPoints(cost, "USD")
             Log.d("update", "updated!! $cost")
+        }
+    }
+    fun getCurrencyVolume(symbol : String){
+        viewModelScope.launch {
+            var volume = withContext(Dispatchers.IO){
+                transactionDao.getCurrency(symbol)
+            }
+
+            _currencyVolume.value = volume
         }
     }
 

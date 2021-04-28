@@ -7,13 +7,13 @@ import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
 import no.kristiania.coinhub.databinding.BuyCurrencyLayoutBinding
 import no.kristiania.coinhub.viewmodels.BuyCurrencyViewModel
-import kotlin.properties.Delegates
 
 class BuyCurrencyFragment : Fragment(R.layout.buy_currency_layout) {
 
     private lateinit var binding : BuyCurrencyLayoutBinding
     private val viewModel = BuyCurrencyViewModel()
     private var userPoints : Double = 0.0
+    private var isBought : Boolean? = null
 
     companion object{
         fun newInstance() = BuyCurrencyFragment()
@@ -24,9 +24,9 @@ class BuyCurrencyFragment : Fragment(R.layout.buy_currency_layout) {
 
         binding = BuyCurrencyLayoutBinding.bind(view)
 
-        var priceUsd = arguments?.getDouble("priceUsd")
-        var name = arguments?.getString("name")
-        var symbol = arguments?.getString("symbol")
+        val priceUsd = arguments?.getDouble("priceUsd")
+        val name = arguments?.getString("name")
+        val symbol = arguments?.getString("symbol")
 
         binding.currencyNameBuy.text = name
         binding.currencySymbol.text = symbol
@@ -39,26 +39,29 @@ class BuyCurrencyFragment : Fragment(R.layout.buy_currency_layout) {
 
         viewModel.getReward()
 
+        viewModel.getCurrencyVolume(symbol!!)
+
         viewModel.points.observe(viewLifecycleOwner){ points ->
             userPoints = points
-            binding.USDBalance.text = "you have ${userPoints} USD"
+            binding.USDBalance.text = "you have $userPoints USD"
         }
 
-        binding.usdInput.addTextChangedListener(){
-            var input = it.toString()
+        binding.usdInput.addTextChangedListener {
+            val input = it.toString()
 
-            if(input.isNullOrEmpty()){
+            if(input.isEmpty()){
                 binding.CurrencyOutput.text = " "
                 binding.buyBtn.isEnabled = false
             } else {
 
-                var output = input.toDouble() / priceUsd!!
+                val output = input.toDouble() / priceUsd!!
                 binding.CurrencyOutput.text = output.toString()
                 binding.buyBtn.isEnabled = true
             }
         }
 
         binding.buyBtn.setOnClickListener {
+
             viewModel.addTransaction(symbol!!, binding.CurrencyOutput.text.toString().toDouble(), "buy", priceUsd!!)
             viewModel.updateUserPoints(userPoints - binding.usdInput.text.toString().toDouble())
         }

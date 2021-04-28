@@ -49,6 +49,21 @@ class CryptoCurrencyFragments : Fragment(R.layout.cryptocurrency_layout) {
                 .commit()
         }
 
+        binding.sellNavBtn.setOnClickListener {
+            var fragment = SellCurrencyFragment.newInstance()
+            fragment.arguments = Bundle().apply {
+                putString("name", binding.currencyName.text.toString())
+                putString("symbol", binding.currencySymbol.text.toString())
+                putDouble("priceUsd", binding.currencyRate.text.toString().toDouble())
+                putString("points", points.toString())
+            }
+            parentFragmentManager
+                .beginTransaction()
+                .replace(R.id.container_fragment, fragment)
+                .addToBackStack("CryptoCurrency")
+                .commit()
+        }
+
         //init view model
         if (symbol != null) {
             viewModel.init(requireContext(), symbol)

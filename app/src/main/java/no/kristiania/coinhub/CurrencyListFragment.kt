@@ -56,7 +56,7 @@ class CurrencyListFragment : Fragment(R.layout.currency_list_fragment) {
         }
 
        binding.points.setOnClickListener {
-           var fragment = PortfolioFragment.newInstance()
+           var fragment = PortfolioListFragment.newInstance()
            fragment.arguments = Bundle().apply {
                putString("points", binding.currencyValue.text.toString())
            }
