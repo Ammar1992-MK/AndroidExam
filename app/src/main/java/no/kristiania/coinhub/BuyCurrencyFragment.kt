@@ -7,11 +7,13 @@ import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
 import no.kristiania.coinhub.databinding.BuyCurrencyLayoutBinding
 import no.kristiania.coinhub.viewmodels.BuyCurrencyViewModel
+import kotlin.properties.Delegates
 
 class BuyCurrencyFragment : Fragment(R.layout.buy_currency_layout) {
 
     private lateinit var binding : BuyCurrencyLayoutBinding
     private val viewModel = BuyCurrencyViewModel()
+    private var userPoints : Double = 0.0
 
     companion object{
         fun newInstance() = BuyCurrencyFragment()
@@ -25,16 +27,22 @@ class BuyCurrencyFragment : Fragment(R.layout.buy_currency_layout) {
         var priceUsd = arguments?.getDouble("priceUsd")
         var name = arguments?.getString("name")
         var symbol = arguments?.getString("symbol")
-        var points = arguments?.getString("points")
 
         binding.currencyNameBuy.text = name
         binding.currencySymbol.text = symbol
         binding.currencyRateBuy.text = priceUsd.toString()
-        binding.USDBalance.text = "you have ${points} USD"
+
         Picasso.get().load("https://static.coincap.io/assets/icons/${symbol?.toLowerCase()}@2x.png").into(binding.currencyImageBuy)
 
         //init viewModel
         viewModel.init(requireContext())
+
+        viewModel.getReward()
+
+        viewModel.points.observe(viewLifecycleOwner){ points ->
+            userPoints = points
+            binding.USDBalance.text = "you have ${userPoints} USD"
+        }
 
         binding.usdInput.addTextChangedListener(){
             var input = it.toString()
@@ -51,9 +59,10 @@ class BuyCurrencyFragment : Fragment(R.layout.buy_currency_layout) {
         }
 
         binding.buyBtn.setOnClickListener {
-            viewModel.addTransaction(symbol!!, binding.CurrencyOutput.text.toString().toDouble(), "buy", priceUsd!!, points!!.toDouble() - binding.usdInput.text.toString().toDouble())
+            viewModel.addTransaction(symbol!!, binding.CurrencyOutput.text.toString().toDouble(), "buy", priceUsd!!)
+            viewModel.updateUserPoints(userPoints - binding.usdInput.text.toString().toDouble())
         }
 
-        viewModel.getEverything()
     }
 }
+//points!!.toDouble() - binding.usdInput.text.toString().toDouble()
