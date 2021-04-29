@@ -21,7 +21,7 @@ interface TransactionDAO {
     suspend fun getCurrency(symbol : String) : Double
 
     @Query("update transaction_table set volume =:newVolume where symbol=:symbol ")
-    suspend fun updateUserPoints(newVolume : Double , symbol: String)
+    suspend fun updateCurrency(newVolume : Double, symbol: String)
 
     @Query("select * from transaction_table order by id")
     suspend fun getTransactions() : List<Transaction>

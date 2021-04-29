@@ -68,7 +68,7 @@
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:text="BTC"/>
-            <TextView
+            <EditText
                 android:id="@+id/currencyInputSell"
                 android:layout_width="100dp"
                 android:layout_height="30dp"
@@ -112,10 +112,10 @@
             android:layout_gravity="bottom|center"/>
 
         <TextView
-            android:id="@+id/currencyBalance"
+            android:id="@+id/currencyVolume"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="you have 450 USD"
+            android:text="you have 450 BTC"
             android:layout_gravity="center|bottom"
             android:textColor="@color/teal_700"
             />

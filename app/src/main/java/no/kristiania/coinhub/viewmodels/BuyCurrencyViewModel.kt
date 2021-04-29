@@ -12,7 +12,6 @@ import kotlinx.coroutines.withContext
 import no.kristiania.coinhub.db.DataBase
 import no.kristiania.coinhub.db.TransactionDAO
 import no.kristiania.coinhub.entities.Transaction
-import kotlin.math.cos
 
 class BuyCurrencyViewModel : ViewModel() {
 
@@ -46,19 +45,15 @@ class BuyCurrencyViewModel : ViewModel() {
         }
     }
 
-    fun updateUserPoints(cost: Double){
+    fun updateCurrency(cost: Double, symbol : String){
         viewModelScope.launch {
-            transactionDao.updateUserPoints(cost, "USD")
+            transactionDao.updateCurrency(cost, symbol)
             Log.d("update", "updated!! $cost")
         }
     }
     fun getCurrencyVolume(symbol : String){
         viewModelScope.launch {
-            var volume = withContext(Dispatchers.IO){
-                transactionDao.getCurrency(symbol)
-            }
-
-            _currencyVolume.value = volume
+            _currencyVolume.value =  transactionDao.getCurrency(symbol)
         }
     }
 

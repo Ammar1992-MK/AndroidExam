@@ -14,6 +14,7 @@ class BuyCurrencyFragment : Fragment(R.layout.buy_currency_layout) {
     private val viewModel = BuyCurrencyViewModel()
     private var userPoints : Double = 0.0
     private var isBought : Boolean? = null
+    private var currentCurrencyVolume : Double? = null
 
     companion object{
         fun newInstance() = BuyCurrencyFragment()
@@ -60,12 +61,26 @@ class BuyCurrencyFragment : Fragment(R.layout.buy_currency_layout) {
             }
         }
 
-        binding.buyBtn.setOnClickListener {
+        viewModel.currencyVolume.observe(viewLifecycleOwner){
+            if(it !== null){
+                currentCurrencyVolume = it
+                isBought = true
+            } else {
+                isBought = false
+            }
+        }
 
-            viewModel.addTransaction(symbol!!, binding.CurrencyOutput.text.toString().toDouble(), "buy", priceUsd!!)
-            viewModel.updateUserPoints(userPoints - binding.usdInput.text.toString().toDouble())
+        binding.buyBtn.setOnClickListener {
+            var newVolume = currentCurrencyVolume?.plus(binding.CurrencyOutput.text.toString().toDouble())
+            if (isBought!!){
+                viewModel.updateCurrency(newVolume!!, symbol)
+            } else {
+                viewModel.addTransaction(symbol!!, binding.CurrencyOutput.text.toString().toDouble(), "Bought", priceUsd!!)
+            }
         }
 
     }
 }
 //points!!.toDouble() - binding.usdInput.text.toString().toDouble()
+//
+//viewModel.updateUserPoints(userPoints - binding.usdInput.text.toString().toDouble())

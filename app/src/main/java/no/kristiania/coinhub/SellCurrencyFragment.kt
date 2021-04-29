@@ -2,6 +2,7 @@ package no.kristiania.coinhub
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
 import no.kristiania.coinhub.databinding.SellCurrencyLayoutBinding
@@ -11,6 +12,7 @@ class SellCurrencyFragment : Fragment(R.layout.sell_currency_layout) {
 
     private lateinit var binding : SellCurrencyLayoutBinding
     private val viewModel = SellCurrencyViewModel()
+    var currencyVolume : Double = 0.0
 
     companion object{
 
@@ -36,6 +38,25 @@ class SellCurrencyFragment : Fragment(R.layout.sell_currency_layout) {
 
         //fetching the currency volume
         viewModel.getCurrencyVolume(symbol!!)
+
+        viewModel.currencyVolume.observe(viewLifecycleOwner){
+            currencyVolume = it
+            binding.currencyVolume.text = "You have $currencyVolume $symbol"
+        }
+
+        binding.currencyInputSell.addTextChangedListener {
+            val input = it.toString()
+
+            if(input.isEmpty()){
+                binding.USDOutput.text = " "
+                binding.sellBtn.isEnabled = false
+            } else {
+
+                val output = input.toDouble() * priceUsd!!
+                binding.USDOutput.text = output.toString()
+                binding.sellBtn.isEnabled = true
+            }
+        }
     }
 
 
