@@ -77,6 +77,8 @@ class BuyCurrencyFragment : Fragment(R.layout.buy_currency_layout) {
             } else {
                 viewModel.addTransaction(symbol!!, binding.CurrencyOutput.text.toString().toDouble(), "Bought", priceUsd!!)
             }
+
+            viewModel.updateCurrency(userPoints - binding.usdInput.text.toString().toDouble(), "USD")
         }
 
     }

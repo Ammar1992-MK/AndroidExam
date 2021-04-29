@@ -13,6 +13,9 @@ class SellCurrencyFragment : Fragment(R.layout.sell_currency_layout) {
     private lateinit var binding : SellCurrencyLayoutBinding
     private val viewModel = SellCurrencyViewModel()
     var currencyVolume : Double = 0.0
+    var soldCurrencyVolume : Double  = 0.0
+    var newCurrencyVolume : Double = 0.0
+    var USDVolume : Double = 0.0
 
     companion object{
 
@@ -57,9 +60,24 @@ class SellCurrencyFragment : Fragment(R.layout.sell_currency_layout) {
                 binding.sellBtn.isEnabled = true
             }
         }
+
+        viewModel.USDpoints.observe(viewLifecycleOwner){
+            USDVolume = it
+        }
+
+        //updating the database
+        binding.sellBtn.setOnClickListener {
+           soldCurrencyVolume = binding.currencyInputSell.text.toString().toDouble()
+            newCurrencyVolume = currencyVolume - soldCurrencyVolume
+            // var newVolume = binding.currencyVolume.text.toString().toDouble() - binding.currencyInputSell.toString().toDouble()
+            viewModel.updateCurrency(newCurrencyVolume, symbol)
+
+            var currentUSDVolume = binding.USDOutput.text.toString().toDouble()
+
+            val newUSDVolume = USDVolume + currentUSDVolume
+
+            viewModel.updateCurrency(newUSDVolume, "USD")
+        }
     }
-
-
-
 
 }
