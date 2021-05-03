@@ -2,6 +2,7 @@ package no.kristiania.coinhub
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
@@ -71,18 +72,24 @@ class BuyCurrencyFragment : Fragment(R.layout.buy_currency_layout) {
         }
 
         binding.buyBtn.setOnClickListener {
-            var newVolume = currentCurrencyVolume?.plus(binding.CurrencyOutput.text.toString().toDouble())
-            if (isBought!!){
-                viewModel.updateCurrency(newVolume!!, symbol)
-            } else {
-                viewModel.addTransaction(symbol!!, binding.CurrencyOutput.text.toString().toDouble(), "Bought", priceUsd!!)
+            val USDInput = binding.usdInput.text.toString().toDouble()
+
+            if(USDInput > userPoints){
+                Toast.makeText(requireContext(),"You don't have enough USD", Toast.LENGTH_LONG).show()
+            }else {
+                var newVolume = currentCurrencyVolume?.plus(binding.CurrencyOutput.text.toString().toDouble())
+                if (isBought!!){
+                    viewModel.updateCurrency(newVolume!!, symbol)
+                } else {
+                    viewModel.addTransaction(symbol!!, binding.CurrencyOutput.text.toString().toDouble(), "Bought", priceUsd!!)
+                }
+                viewModel.updateCurrency(userPoints - USDInput, "USD")
             }
 
-            viewModel.updateCurrency(userPoints - binding.usdInput.text.toString().toDouble(), "USD")
         }
 
     }
 }
 //points!!.toDouble() - binding.usdInput.text.toString().toDouble()
-//
+
 //viewModel.updateUserPoints(userPoints - binding.usdInput.text.toString().toDouble())

@@ -34,8 +34,6 @@ class PortfolioListFragment : Fragment(R.layout.portfolio_layout) {
 
         //configure list
         configureList()
-
-
     }
 
     private fun configureList(){

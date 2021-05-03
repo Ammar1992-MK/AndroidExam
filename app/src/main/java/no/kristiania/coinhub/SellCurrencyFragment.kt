@@ -2,6 +2,7 @@ package no.kristiania.coinhub
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
@@ -10,14 +11,14 @@ import no.kristiania.coinhub.viewmodels.SellCurrencyViewModel
 
 class SellCurrencyFragment : Fragment(R.layout.sell_currency_layout) {
 
-    private lateinit var binding : SellCurrencyLayoutBinding
+    private lateinit var binding: SellCurrencyLayoutBinding
     private val viewModel = SellCurrencyViewModel()
-    var currencyVolume : Double = 0.0
-    var soldCurrencyVolume : Double  = 0.0
-    var newCurrencyVolume : Double = 0.0
-    var USDVolume : Double = 0.0
+    var currencyVolume: Double = 0.0
+    var soldCurrencyVolume: Double = 0.0
+    var newCurrencyVolume: Double = 0.0
+    var USDVolume: Double = 0.0
 
-    companion object{
+    companion object {
 
         fun newInstance() = SellCurrencyFragment()
     }
@@ -34,7 +35,9 @@ class SellCurrencyFragment : Fragment(R.layout.sell_currency_layout) {
         binding.currencySymbolSell.text = symbol
         binding.currencyNameSell.text = name
         binding.currencyRateSell.text = priceUsd.toString()
-        Picasso.get().load("https://static.coincap.io/assets/icons/${symbol?.toLowerCase()}@2x.png").into(binding.currencyImageSell)
+        Picasso.get().load("https://static.coincap.io/assets/icons/${symbol?.toLowerCase()}@2x.png")
+            .into(binding.currencyImageSell)
+
 
         //init view model
         viewModel.init(requireContext())
@@ -42,7 +45,7 @@ class SellCurrencyFragment : Fragment(R.layout.sell_currency_layout) {
         //fetching the currency volume
         viewModel.getCurrencyVolume(symbol!!)
 
-        viewModel.currencyVolume.observe(viewLifecycleOwner){
+        viewModel.currencyVolume.observe(viewLifecycleOwner) {
             currencyVolume = it
             binding.currencyVolume.text = "You have $currencyVolume $symbol"
         }
@@ -50,7 +53,7 @@ class SellCurrencyFragment : Fragment(R.layout.sell_currency_layout) {
         binding.currencyInputSell.addTextChangedListener {
             val input = it.toString()
 
-            if(input.isEmpty()){
+            if (input.isEmpty()) {
                 binding.USDOutput.text = " "
                 binding.sellBtn.isEnabled = false
             } else {
@@ -61,23 +64,31 @@ class SellCurrencyFragment : Fragment(R.layout.sell_currency_layout) {
             }
         }
 
-        viewModel.USDpoints.observe(viewLifecycleOwner){
+        viewModel.USDpoints.observe(viewLifecycleOwner) {
             USDVolume = it
         }
 
         //updating the database
         binding.sellBtn.setOnClickListener {
-           soldCurrencyVolume = binding.currencyInputSell.text.toString().toDouble()
-            newCurrencyVolume = currencyVolume - soldCurrencyVolume
-            // var newVolume = binding.currencyVolume.text.toString().toDouble() - binding.currencyInputSell.toString().toDouble()
-            viewModel.updateCurrency(newCurrencyVolume, symbol)
+            val currencyInput = binding.currencyInputSell.text.toString().toDouble()
 
-            var currentUSDVolume = binding.USDOutput.text.toString().toDouble()
+            if(currencyInput > currencyVolume){
+                Toast.makeText(requireContext(),"Amount $symbol is not sufficient", Toast.LENGTH_LONG).show()
 
-            val newUSDVolume = USDVolume + currentUSDVolume
+            }else {
+                soldCurrencyVolume = currencyInput
+                newCurrencyVolume = currencyVolume - soldCurrencyVolume
+                // var newVolume = binding.currencyVolume.text.toString().toDouble() - binding.currencyInputSell.toString().toDouble()
+                viewModel.updateCurrency(newCurrencyVolume, symbol)
 
-            viewModel.updateCurrency(newUSDVolume, "USD")
+                var currentUSDVolume = binding.USDOutput.text.toString().toDouble()
+
+                val newUSDVolume = USDVolume + currentUSDVolume
+
+                viewModel.updateCurrency(newUSDVolume, "USD")
+            }
+
         }
     }
-
 }
+
