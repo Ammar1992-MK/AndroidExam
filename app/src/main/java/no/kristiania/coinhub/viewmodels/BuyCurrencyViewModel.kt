@@ -41,7 +41,7 @@ class BuyCurrencyViewModel : ViewModel() {
                 transactionDao.getReward("installationReward")
             }
 
-            _points.value = userPoints;
+            _points.value = userPoints
         }
     }
 

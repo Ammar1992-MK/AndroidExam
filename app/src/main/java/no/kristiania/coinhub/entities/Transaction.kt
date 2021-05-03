@@ -24,5 +24,4 @@ data class Transaction (
    @ColumnInfo(name = "symbol")
    val symbol : String,
 
-
    )
