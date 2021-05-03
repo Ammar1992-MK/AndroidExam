@@ -4,9 +4,12 @@ import androidx.room.*
 import kotlinx.coroutines.selects.select
 
 import no.kristiania.coinhub.entities.Transaction
+import no.kristiania.coinhub.entities.TransactionHistory
 
 @Dao
 interface TransactionDAO {
+
+    //transaction_table
 
     @Insert
     suspend fun insert(transaction : Transaction)
@@ -26,5 +29,11 @@ interface TransactionDAO {
     @Query("select * from transaction_table order by id")
     suspend fun getTransactions() : List<Transaction>
 
+    //transaction_history_table
 
+    @Insert
+    suspend fun save(transactionHistory: TransactionHistory)
+
+    @Query("select * from transaction_history_table order by id")
+    suspend fun getHistory() : List<TransactionHistory>
 }
