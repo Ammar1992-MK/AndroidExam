@@ -12,6 +12,7 @@ import kotlinx.coroutines.withContext
 import no.kristiania.coinhub.db.DataBase
 import no.kristiania.coinhub.db.TransactionDAO
 import no.kristiania.coinhub.entities.Transaction
+import no.kristiania.coinhub.entities.TransactionHistory
 
 class BuyCurrencyViewModel : ViewModel() {
 
@@ -31,6 +32,7 @@ class BuyCurrencyViewModel : ViewModel() {
     fun addTransaction(symbol : String, volume :Double, type :String, rate : Double){
         viewModelScope.launch {
             transactionDao.insert(Transaction(volume = volume, type = type, symbol = symbol, rate = rate))
+            transactionDao.save(TransactionHistory(volume = volume, type = type, symbol = symbol, rate = rate))
 
         }
     }
