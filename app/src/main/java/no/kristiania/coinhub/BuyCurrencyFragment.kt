@@ -1,6 +1,7 @@
 package no.kristiania.coinhub
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
@@ -57,6 +58,7 @@ class BuyCurrencyFragment : Fragment(R.layout.buy_currency_layout) {
             } else {
 
                 val output = input.toDouble() / priceUsd!!
+                Log.d("output", output.toString())
                 binding.CurrencyOutput.text = output.toString()
                 binding.buyBtn.isEnabled = true
             }
