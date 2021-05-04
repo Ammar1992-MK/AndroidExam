@@ -8,6 +8,7 @@ import no.kristiania.coinhub.adapters.CurrencyListAdapter
 import no.kristiania.coinhub.databinding.CurrencyListFragmentBinding
 import no.kristiania.coinhub.models.CurrencyStats
 import no.kristiania.coinhub.viewmodels.CurrencyListViewModel
+import java.math.RoundingMode
 
 class CurrencyListFragment : Fragment(R.layout.currency_list_fragment) {
 
@@ -31,7 +32,7 @@ class CurrencyListFragment : Fragment(R.layout.currency_list_fragment) {
 
             fragment.arguments = Bundle().apply {
                 putString("name", stats.Name)
-                putDouble("price", stats.PriceUsd)
+                putDouble("price", stats.PriceUsd.toBigDecimal().setScale(2, RoundingMode.UP).toDouble())
                 putString("symbol", stats.Symbol)
                 putString("points", binding.currencyValue.text.toString())
             }
@@ -52,7 +53,7 @@ class CurrencyListFragment : Fragment(R.layout.currency_list_fragment) {
 
         //get USD points
         viewModel.points.observe(viewLifecycleOwner){
-            binding.currencyValue.text = it.toString()
+            binding.currencyValue.text = it.toBigDecimal().setScale(2, RoundingMode.UP).toDouble().toString()
         }
 
        binding.points.setOnClickListener {

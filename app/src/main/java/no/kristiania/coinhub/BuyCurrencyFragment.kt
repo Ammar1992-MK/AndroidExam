@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
 import no.kristiania.coinhub.databinding.BuyCurrencyLayoutBinding
 import no.kristiania.coinhub.viewmodels.BuyCurrencyViewModel
+import java.math.RoundingMode
 
 class BuyCurrencyFragment : Fragment(R.layout.buy_currency_layout) {
 
@@ -59,7 +60,7 @@ class BuyCurrencyFragment : Fragment(R.layout.buy_currency_layout) {
 
                 val output = input.toDouble() / priceUsd!!
                 Log.d("output", output.toString())
-                binding.CurrencyOutput.text = output.toString()
+                binding.CurrencyOutput.text = output.toBigDecimal().setScale(12, RoundingMode.UP).toDouble().toString()
                 binding.buyBtn.isEnabled = true
             }
         }
