@@ -32,6 +32,15 @@ class PortfolioListFragment : Fragment(R.layout.portfolio_layout) {
             adapter.setPortfolioList(it)
         }
 
+        binding.transactions.setOnClickListener {
+
+            parentFragmentManager
+                .beginTransaction()
+                .replace(R.id.container_fragment,TransactionHistoryListFragment.newInstance())
+                .addToBackStack("transactions")
+                .commit()
+        }
+
         //configure list
         configureList()
     }

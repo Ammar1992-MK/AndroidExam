@@ -36,8 +36,8 @@ abstract class DataBase : RoomDatabase(){
         val MIGRATION_1_2 = object : Migration(1, 2){
             override fun migrate(database: SupportSQLiteDatabase) {
 
-                database.execSQL("CREATE TABLE `transaction_history_table` (`id` INTEGER, `type` TEXT,`volume` REAL, `rate` REAL, `symbol` TEXT, " +
-                        "PRIMARY KEY(`id`))")
+                database.execSQL("CREATE TABLE `transaction_history_table` (`id` INTEGER , `type` TEXT,`volume` REAL, `rate` REAL, `symbol` TEXT, " +
+                        "PRIMARY KEY AUTOINCREMENT(`id`)")
             }
 
         }

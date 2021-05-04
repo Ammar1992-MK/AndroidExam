@@ -2,6 +2,7 @@ package no.kristiania.coinhub.db
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import no.kristiania.coinhub.entities.TransactionHistory
 

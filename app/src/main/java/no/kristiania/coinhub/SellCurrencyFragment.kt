@@ -86,6 +86,7 @@ class SellCurrencyFragment : Fragment(R.layout.sell_currency_layout) {
                 val newUSDVolume = USDVolume + currentUSDVolume
 
                 viewModel.updateCurrency(newUSDVolume, "USD")
+                viewModel.saveTransactionHistory(soldCurrencyVolume,symbol,currentUSDVolume )
             }
 
         }

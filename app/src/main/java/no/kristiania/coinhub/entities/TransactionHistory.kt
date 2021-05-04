@@ -10,7 +10,7 @@ data class TransactionHistory (
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    val id:Long? = 0,
+    val id:Long? = null,
 
     @ColumnInfo(name = "type")
     val type : String?,

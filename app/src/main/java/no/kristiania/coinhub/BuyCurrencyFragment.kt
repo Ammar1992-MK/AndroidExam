@@ -82,9 +82,11 @@ class BuyCurrencyFragment : Fragment(R.layout.buy_currency_layout) {
             }else {
                 var newVolume = currentCurrencyVolume?.plus(currencyOutput)
                 if (isBought!!){
-                    viewModel.updateCurrency(newVolume!!, symbol, USDInput, currencyOutput)
+                    viewModel.updateCurrency(newVolume!!, symbol)
+                    viewModel.saveTransactionHistory(currencyOutput, symbol, USDInput)
                 } else {
                     viewModel.addTransaction(symbol!!, binding.CurrencyOutput.text.toString().toDouble(), "Bought", priceUsd!!)
+                    viewModel.saveTransactionHistory(currencyOutput, symbol, USDInput)
                 }
                 viewModel.updateCurrency(userPoints - USDInput, "USD")
 

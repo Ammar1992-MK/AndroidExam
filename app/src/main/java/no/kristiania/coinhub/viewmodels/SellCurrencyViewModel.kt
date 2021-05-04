@@ -12,6 +12,7 @@ import kotlinx.coroutines.withContext
 import no.kristiania.coinhub.db.DataBase
 import no.kristiania.coinhub.db.TransactionDAO
 import no.kristiania.coinhub.db.TransactionHistoryDAO
+import no.kristiania.coinhub.entities.TransactionHistory
 
 class SellCurrencyViewModel : ViewModel() {
 
@@ -26,6 +27,7 @@ class SellCurrencyViewModel : ViewModel() {
 
     fun init (context : Context) {
         transactionDao = DataBase.getDatabase(context).getTransactionDAO()
+        transactionHistoryDAO = DataBase.getDatabase(context).getTransactionHistoryDAO()
         getUSDVolume()
     }
 
@@ -42,6 +44,12 @@ class SellCurrencyViewModel : ViewModel() {
         viewModelScope.launch {
             transactionDao.updateCurrency(cost, symbol)
 
+        }
+    }
+
+    fun saveTransactionHistory(currencyOutput : Double, symbol : String, USDInput : Double){
+        viewModelScope.launch {
+            transactionHistoryDAO.insert(TransactionHistory(volume = currencyOutput, type = "Sold", symbol = symbol, rate = USDInput))
         }
     }
 

@@ -15,6 +15,7 @@ import no.kristiania.coinhub.db.TransactionDAO
 import no.kristiania.coinhub.db.TransactionHistoryDAO
 import no.kristiania.coinhub.entities.Transaction
 import no.kristiania.coinhub.entities.TransactionHistory
+import java.util.function.DoubleToLongFunction
 
 class BuyCurrencyViewModel : ViewModel() {
 
@@ -36,8 +37,13 @@ class BuyCurrencyViewModel : ViewModel() {
     fun addTransaction(symbol : String, volume :Double, type :String, rate : Double){
         viewModelScope.launch {
             transactionDao.insert(Transaction(volume = volume, type = type, symbol = symbol, rate = rate))
-            transactionHistoryDAO.insert(TransactionHistory(volume = volume, type = "Bought", symbol = symbol, rate = rate))
         }
+    }
+
+    fun saveTransactionHistory(currencyOutput : Double, symbol : String, USDInput : Double){
+       viewModelScope.launch {
+           transactionHistoryDAO.insert(TransactionHistory(volume = currencyOutput, type = "Bought", symbol = symbol, rate = USDInput))
+       }
     }
 
     fun getReward (){
@@ -50,10 +56,9 @@ class BuyCurrencyViewModel : ViewModel() {
         }
     }
 
-    fun updateCurrency(cost: Double, symbol : String, USDInput : Double, currencyOutput : Double){
+    fun updateCurrency(cost: Double, symbol : String){
         viewModelScope.launch {
             transactionDao.updateCurrency(cost, symbol)
-            transactionHistoryDAO.insert(TransactionHistory(volume = currencyOutput, type = "Bought", symbol = symbol, rate = USDInput))
             Log.d("update", "updated!! $cost")
         }
     }

@@ -14,7 +14,7 @@ import no.kristiania.coinhub.db.TransactionDAO
 
 class CryptoCurrencyViewModel : ViewModel() {
 
-    private lateinit var transactionDao : TransactionDAO
+      private lateinit var transactionDao : TransactionDAO
 
     private val _currencyVolumeLiveData = MutableLiveData<Double>()
     val currencyVolumeLiveData : LiveData<Double> get() = _currencyVolumeLiveData
