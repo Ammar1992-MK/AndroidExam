@@ -32,7 +32,6 @@ class BuyCurrencyViewModel : ViewModel() {
     fun addTransaction(symbol : String, volume :Double, type :String, rate : Double){
         viewModelScope.launch {
             transactionDao.insert(Transaction(volume = volume, type = type, symbol = symbol, rate = rate))
-            transactionDao.save(TransactionHistory(volume = volume, type = type, symbol = symbol, rate = rate))
 
         }
     }

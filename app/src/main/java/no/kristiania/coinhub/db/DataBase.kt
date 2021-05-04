@@ -14,6 +14,8 @@ abstract class DataBase : RoomDatabase(){
 
     abstract fun getTransactionDAO() : TransactionDAO
 
+    abstract fun getTransactionHistoryDAO() : TransactionHistoryDAO
+
     companion object{
 
         var db : DataBase? = null

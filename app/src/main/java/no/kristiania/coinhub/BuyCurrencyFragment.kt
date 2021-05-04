@@ -86,12 +86,19 @@ class BuyCurrencyFragment : Fragment(R.layout.buy_currency_layout) {
                     viewModel.addTransaction(symbol!!, binding.CurrencyOutput.text.toString().toDouble(), "Bought", priceUsd!!)
                 }
                 viewModel.updateCurrency(userPoints - USDInput, "USD")
+
+                navigateToScreen4()
             }
 
         }
 
     }
-}
-//points!!.toDouble() - binding.usdInput.text.toString().toDouble()
 
-//viewModel.updateUserPoints(userPoints - binding.usdInput.text.toString().toDouble())
+    fun navigateToScreen4(){
+
+        parentFragmentManager
+            .beginTransaction()
+            .replace(R.id.container_fragment , CryptoCurrencyFragments.newInstance())
+            .commit()
+    }
+}
