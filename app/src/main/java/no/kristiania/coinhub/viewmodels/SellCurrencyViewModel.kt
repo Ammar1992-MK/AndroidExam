@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import no.kristiania.coinhub.db.DataBase
 import no.kristiania.coinhub.db.TransactionDAO
+import no.kristiania.coinhub.db.TransactionHistoryDAO
 
 class SellCurrencyViewModel : ViewModel() {
 
@@ -20,6 +21,7 @@ class SellCurrencyViewModel : ViewModel() {
     private val _USDpoints = MutableLiveData<Double>()
     val USDpoints : LiveData<Double> get() = _USDpoints
     private lateinit var transactionDao : TransactionDAO
+    private lateinit var transactionHistoryDAO: TransactionHistoryDAO
 
 
     fun init (context : Context) {

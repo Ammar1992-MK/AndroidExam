@@ -75,19 +75,20 @@ class BuyCurrencyFragment : Fragment(R.layout.buy_currency_layout) {
 
         binding.buyBtn.setOnClickListener {
             val USDInput = binding.usdInput.text.toString().toDouble()
+            val currencyOutput = binding.CurrencyOutput.text.toString().toDouble()
 
             if(USDInput > userPoints){
                 Toast.makeText(requireContext(),"You don't have enough USD", Toast.LENGTH_LONG).show()
             }else {
-                var newVolume = currentCurrencyVolume?.plus(binding.CurrencyOutput.text.toString().toDouble())
+                var newVolume = currentCurrencyVolume?.plus(currencyOutput)
                 if (isBought!!){
-                    viewModel.updateCurrency(newVolume!!, symbol)
+                    viewModel.updateCurrency(newVolume!!, symbol, USDInput, currencyOutput)
                 } else {
                     viewModel.addTransaction(symbol!!, binding.CurrencyOutput.text.toString().toDouble(), "Bought", priceUsd!!)
                 }
                 viewModel.updateCurrency(userPoints - USDInput, "USD")
 
-                navigateToScreen4()
+                //navigateToScreen4()
             }
 
         }
