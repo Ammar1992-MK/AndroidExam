@@ -10,18 +10,18 @@ data class TransactionHistory (
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    val id:Long = 0,
+    val id:Long? = 0,
 
     @ColumnInfo(name = "type")
-    val type : String,
+    val type : String?,
 
     @ColumnInfo(name = "volume")
-    val volume : Double,
+    val volume : Double?,
 
     @ColumnInfo(name = "rate")
-    val rate : Double,
+    val rate : Double?,
 
     @ColumnInfo(name = "symbol")
-    val symbol : String,
+    val symbol : String?,
 
     )
