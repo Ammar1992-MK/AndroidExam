@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         if(firstRun){
             viewModel.insertInstallationReward()
+            viewModel.saveInstallationRewardInHistory()
             sharedPreferences.edit().putBoolean("firstRun", false).commit()
         }
 
