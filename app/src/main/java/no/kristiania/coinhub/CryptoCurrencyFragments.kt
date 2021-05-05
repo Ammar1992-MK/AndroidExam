@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import com.squareup.picasso.Picasso
 import no.kristiania.coinhub.databinding.CryptocurrencyLayoutBinding
 import no.kristiania.coinhub.viewmodels.CryptoCurrencyViewModel
+import java.math.RoundingMode
 
 class CryptoCurrencyFragments : Fragment(R.layout.cryptocurrency_layout) {
 

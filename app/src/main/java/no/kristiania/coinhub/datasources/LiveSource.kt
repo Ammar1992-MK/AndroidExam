@@ -1,6 +1,7 @@
 package no.kristiania.coinhub.datasources
 
 import no.kristiania.coinhub.models.CurrencyStats
+import no.kristiania.coinhub.models.RateStats
 import org.json.JSONObject
 import java.net.HttpURLConnection
 import java.net.URL
@@ -33,6 +34,21 @@ class LiveSource {
 
         return  list
 
+    }
+
+    fun getRecentRate(currencyName : String) : List<RateStats>{
+
+        val list = ArrayList<RateStats>()
+
+        var response = get("https://api.coincap.io/v2/assets/$currencyName")
+
+        if(response.isSuccessful){
+            var rates = JSONObject(response.body).getJSONObject("data")
+
+            list.add(RateStats(rates.getString("priceUsd")))
+        }
+
+        return list
     }
 
 

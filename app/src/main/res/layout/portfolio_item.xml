@@ -30,6 +30,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
     </TextView>
+    <TextView
+        android:layout_marginLeft="100dp"
+        android:layout_toRightOf="@+id/imageViewCrypto"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        android:textColor="@android:color/black"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/textViewCryptoAmount"
+        android:id="@+id/textViewCryptoRate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </TextView>
 
 
 </RelativeLayout>

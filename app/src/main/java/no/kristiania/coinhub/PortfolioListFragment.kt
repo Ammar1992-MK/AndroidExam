@@ -25,12 +25,8 @@ class PortfolioListFragment : Fragment(R.layout.portfolio_layout) {
 
         binding = PortfolioLayoutBinding.bind(view)
 
-        //init view model
-        viewModel.init(requireContext())
-
-        viewModel.transactionListLiveData.observe(viewLifecycleOwner){
-            adapter.setPortfolioList(it)
-        }
+        var points = arguments?.getString("points")
+        var recentRate = arguments?.getDouble("recentRate")
 
         binding.transactions.setOnClickListener {
 
@@ -40,6 +36,16 @@ class PortfolioListFragment : Fragment(R.layout.portfolio_layout) {
                 .addToBackStack("transactions")
                 .commit()
         }
+
+        //init view model
+        viewModel.init(requireContext())
+
+        viewModel.transactionListLiveData.observe(viewLifecycleOwner){
+            adapter.setPortfolioList(it)
+        }
+
+
+
 
         //configure list
         configureList()

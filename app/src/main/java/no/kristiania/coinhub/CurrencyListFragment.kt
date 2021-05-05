@@ -16,6 +16,7 @@ class CurrencyListFragment : Fragment(R.layout.currency_list_fragment) {
     private lateinit var binding: CurrencyListFragmentBinding
     private lateinit var listAdapter :CurrencyListAdapter
     private val viewModel = CurrencyListViewModel()
+    private var recentRate : Double = 0.0
 
     companion object{
 
@@ -29,6 +30,7 @@ class CurrencyListFragment : Fragment(R.layout.currency_list_fragment) {
 
         listAdapter = CurrencyListAdapter(ArrayList<CurrencyStats>()){ stats ->
           var fragment =  CryptoCurrencyFragments.newInstance()
+            recentRate = stats.PriceUsd.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
 
             fragment.arguments = Bundle().apply {
                 putString("name", stats.Name)
@@ -60,6 +62,7 @@ class CurrencyListFragment : Fragment(R.layout.currency_list_fragment) {
            var fragment = PortfolioListFragment.newInstance()
            fragment.arguments = Bundle().apply {
                putString("points", binding.currencyValue.text.toString())
+               putDouble("rate", recentRate)
            }
            parentFragmentManager
                .beginTransaction()

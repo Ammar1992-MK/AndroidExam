@@ -60,7 +60,7 @@ class BuyCurrencyFragment : Fragment(R.layout.buy_currency_layout) {
 
                 val output = input.toDouble() / priceUsd!!
                 Log.d("output", output.toString())
-                binding.CurrencyOutput.text = output.toBigDecimal().setScale(12, RoundingMode.UP).toDouble().toString()
+                binding.CurrencyOutput.text = output.toBigDecimal().setScale(2, RoundingMode.UP).toDouble().toString()
                 binding.buyBtn.isEnabled = true
             }
         }
@@ -77,17 +77,18 @@ class BuyCurrencyFragment : Fragment(R.layout.buy_currency_layout) {
         binding.buyBtn.setOnClickListener {
             val USDInput = binding.usdInput.text.toString().toDouble()
             val currencyOutput = binding.CurrencyOutput.text.toString().toDouble()
+            val  currencyVolume = currencyOutput.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
 
             if(USDInput > userPoints){
                 Toast.makeText(requireContext(),"You don't have enough USD", Toast.LENGTH_LONG).show()
             }else {
-                var newVolume = currentCurrencyVolume?.plus(currencyOutput)
+                var newVolume = currentCurrencyVolume?.plus(currencyVolume)
                 if (isBought!!){
                     viewModel.updateCurrency(newVolume!!, symbol)
-                    viewModel.saveTransactionHistory(currencyOutput, symbol, USDInput)
+                    viewModel.saveTransactionHistory(currencyVolume, symbol, USDInput)
                 } else {
-                    viewModel.addTransaction(symbol!!, binding.CurrencyOutput.text.toString().toDouble(), "Bought", priceUsd!!)
-                    viewModel.saveTransactionHistory(currencyOutput, symbol, USDInput)
+                    viewModel.addTransaction(symbol!!, currencyVolume, "Bought", priceUsd!!)
+                    viewModel.saveTransactionHistory(currencyVolume, symbol, USDInput)
                 }
                 viewModel.updateCurrency(userPoints - USDInput, "USD")
 

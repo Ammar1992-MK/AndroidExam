@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
 import no.kristiania.coinhub.databinding.SellCurrencyLayoutBinding
 import no.kristiania.coinhub.viewmodels.SellCurrencyViewModel
+import java.math.RoundingMode
 
 class SellCurrencyFragment : Fragment(R.layout.sell_currency_layout) {
 
@@ -84,8 +85,9 @@ class SellCurrencyFragment : Fragment(R.layout.sell_currency_layout) {
                 var currentUSDVolume = binding.USDOutput.text.toString().toDouble()
 
                 val newUSDVolume = USDVolume + currentUSDVolume
+                val usdVolume = newUSDVolume.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
 
-                viewModel.updateCurrency(newUSDVolume, "USD")
+                viewModel.updateCurrency(usdVolume, "USD")
                 viewModel.saveTransactionHistory(soldCurrencyVolume,symbol,currentUSDVolume )
             }
 
