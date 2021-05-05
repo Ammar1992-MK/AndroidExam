@@ -12,6 +12,6 @@ interface TransactionHistoryDAO {
     @Insert
     suspend fun insert(transactionHistory: TransactionHistory)
 
-    @Query("select * from transaction_history_table order by id")
+    @Query("select * from transaction_history_table order by id desc")
     suspend fun getHistory() : List<TransactionHistory>
 }
