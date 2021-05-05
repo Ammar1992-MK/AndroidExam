@@ -17,7 +17,7 @@ class TransactionHistoryAdapter() :
         class ViewHolder(val binding: TransactionHistoryItemBinding) : RecyclerView.ViewHolder(binding.root){
             fun bind( transactionHistory: TransactionHistory)  {
 
-                binding.transactionItemUsdPoints.text = transactionHistory.rate!!.toBigDecimal().setScale(3, RoundingMode.UP).toDouble().toString()
+                binding.transactionItemUsdPoints.text = "$${transactionHistory.rate!!.toBigDecimal().setScale(3, RoundingMode.UP).toDouble().toString()}"
                 binding.transactionItemCurrencySymbol.text = transactionHistory.symbol.toString()
                 binding.transactionItemCurrencyVolume.text = transactionHistory.volume!!.toBigDecimal().setScale(5, RoundingMode.UP).toDouble().toString()
                 binding.transactionsItemBoughtSold.text = transactionHistory.type.toString()

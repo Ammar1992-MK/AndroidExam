@@ -48,7 +48,7 @@ class SellCurrencyFragment : Fragment(R.layout.sell_currency_layout) {
 
         viewModel.currencyVolume.observe(viewLifecycleOwner) {
             currencyVolume = it
-            binding.currencyVolume.text = "You have ${currencyVolume.toBigDecimal().setScale(5, RoundingMode.UP).toDouble()} $symbol"
+            binding.currencyVolume.text = "You have ${currencyVolume.toBigDecimal().setScale(5, RoundingMode.UP).toDouble()} $symbol."
         }
 
         binding.currencyInputSell.addTextChangedListener {

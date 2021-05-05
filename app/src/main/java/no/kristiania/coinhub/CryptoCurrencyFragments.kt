@@ -73,11 +73,11 @@ class CryptoCurrencyFragments : Fragment(R.layout.cryptocurrency_layout) {
         viewModel.currencyVolumeLiveData.observe(viewLifecycleOwner){
             with(binding){
                 if ( it == null){
-                    wallet.text = "you have 0.00 ${symbol}"
+                    wallet.text = "You have 0.00 ${symbol}."
                     sellNavBtn.isEnabled = false
                 } else {
 
-                    wallet.text = "you have ${it.toBigDecimal().setScale(5, RoundingMode.UP).toDouble()} ${symbol} "
+                    wallet.text = "You have ${it.toBigDecimal().setScale(5, RoundingMode.UP).toDouble()} ${symbol}."
                     sellNavBtn.isEnabled = true
                 }
             }

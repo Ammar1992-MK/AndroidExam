@@ -47,7 +47,7 @@ class BuyCurrencyFragment : Fragment(R.layout.buy_currency_layout) {
 
         viewModel.points.observe(viewLifecycleOwner){ points ->
             userPoints = points
-            binding.USDBalance.text = "you have $userPoints USD"
+            binding.USDBalance.text = "You have $userPoints USD."
         }
 
         binding.usdInput.addTextChangedListener {
