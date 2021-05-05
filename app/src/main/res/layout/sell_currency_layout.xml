@@ -40,10 +40,16 @@
             android:layout_gravity="right|bottom"
             android:layout_marginTop="20dp"
             android:layout_marginRight="32dp"
-            android:text="$54.5454545"
+            android:text="54.5454545"
             android:textColor="@color/black"
             android:textSize="25sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$" />
     </FrameLayout>
 
     <FrameLayout
@@ -115,7 +121,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="you have 450 BTC"
-            android:layout_gravity="center|bottom"
+            android:layout_gravity="center|top"
             android:textColor="@color/teal_700"
             />
 

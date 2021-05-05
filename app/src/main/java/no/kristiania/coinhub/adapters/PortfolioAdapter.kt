@@ -19,7 +19,7 @@ class PortfolioAdapter() :
         class ViewHolder(val binding: PortfolioItemBinding) : RecyclerView.ViewHolder(binding.root){
             fun bind( transaction : Transaction)  {
 
-                binding.textViewCryptoAmount.text = transaction.volume.toString()
+                binding.textViewCryptoAmount.text = transaction.volume.toBigDecimal().setScale(5, RoundingMode.UP).toDouble().toString()
                 val symbol = transaction.symbol
                 Picasso.get().load("https://static.coincap.io/assets/icons/${symbol?.toLowerCase()}@2x.png").into(binding.imageViewCrypto)
 

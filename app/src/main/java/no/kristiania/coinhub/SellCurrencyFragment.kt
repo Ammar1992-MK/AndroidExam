@@ -35,7 +35,7 @@ class SellCurrencyFragment : Fragment(R.layout.sell_currency_layout) {
 
         binding.currencySymbolSell.text = symbol
         binding.currencyNameSell.text = name
-        binding.currencyRateSell.text = priceUsd.toString()
+        binding.currencyRateSell.text = "$${priceUsd.toString()}"
         Picasso.get().load("https://static.coincap.io/assets/icons/${symbol?.toLowerCase()}@2x.png")
             .into(binding.currencyImageSell)
 

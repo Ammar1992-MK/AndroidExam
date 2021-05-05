@@ -34,7 +34,7 @@ class BuyCurrencyFragment : Fragment(R.layout.buy_currency_layout) {
 
         binding.currencyNameBuy.text = name
         binding.currencySymbol.text = symbol
-        binding.currencyRateBuy.text = priceUsd.toString()
+        binding.currencyRateBuy.text = "$${priceUsd.toString()}"
 
         Picasso.get().load("https://static.coincap.io/assets/icons/${symbol?.toLowerCase()}@2x.png").into(binding.currencyImageBuy)
 
