@@ -77,7 +77,7 @@ class CryptoCurrencyFragments : Fragment(R.layout.cryptocurrency_layout) {
                     sellNavBtn.isEnabled = false
                 } else {
 
-                    wallet.text = "you have ${it.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()} ${symbol} "
+                    wallet.text = "you have ${it.toBigDecimal().setScale(5, RoundingMode.UP).toDouble()} ${symbol} "
                     sellNavBtn.isEnabled = true
                 }
             }
