@@ -16,10 +16,10 @@ class TransactionHistoryAdapter() :
         class ViewHolder(val binding: TransactionHistoryItemBinding) : RecyclerView.ViewHolder(binding.root){
             fun bind( transactionHistory: TransactionHistory)  {
 
+                binding.transactionItemUsdPoints.text = transactionHistory.rate.toString()
                 binding.transactionItemCurrencySymbol.text = transactionHistory.symbol.toString()
                 binding.transactionItemCurrencyVolume.text = transactionHistory.volume.toString()
                 binding.transactionsItemBoughtSold.text = transactionHistory.type.toString()
-               // binding.transactionItemUsdPoints.text = transactionHistory.type.toString()
                 val symbol = transactionHistory.symbol
                 Picasso.get().load("https://static.coincap.io/assets/icons/${symbol?.toLowerCase()}@2x.png").into(binding.transactionItemImage)
 

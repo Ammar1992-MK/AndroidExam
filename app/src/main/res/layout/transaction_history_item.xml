@@ -51,8 +51,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:text="for 54.00 USD"
+        android:text="USD"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/transaction_item_currency_symbol"
+        app:layout_constraintTop_toBottomOf="@+id/transactions_item_bought_sold"
+        app:layout_goneMarginLeft="16dp"></TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="for"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/transaction_item_usd_points"
         app:layout_constraintStart_toEndOf="@+id/transaction_item_currency_symbol"
         app:layout_constraintTop_toBottomOf="@+id/transactions_item_bought_sold"></TextView>
 
